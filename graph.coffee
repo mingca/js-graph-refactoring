@@ -1,5 +1,5 @@
-InitChart = (data) ->
-  vis = d3.select('#graph')
+drawChart = (data) ->
+  graph = d3.select('#graph')
   WIDTH = 1000
   HEIGHT = 500
   MARGINS =
@@ -31,14 +31,14 @@ InitChart = (data) ->
   ])
   xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickSubdivide(true)
   yAxis = d3.svg.axis().scale(yRange).tickSize(5).orient('left').tickSubdivide(true)
-  vis.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call xAxis
-  vis.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call yAxis
+  graph.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')').call xAxis
+  graph.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + MARGINS.left + ',0)').call yAxis
   lineFunc = d3.svg.line().x((d) ->
     xRange d.x
   ).y((d) ->
     yRange d.y
   ).interpolate('basis')
-  vis.append('svg:path').attr('d', lineFunc(data)).attr('stroke', 'blue').attr('stroke-width', 2).attr 'fill', 'none'
+  graph.append('svg:path').attr('d', lineFunc(data)).attr('stroke', 'blue').attr('stroke-width', 2).attr 'fill', 'none'
 
 $(document).ready ->
   data = [
@@ -49,4 +49,4 @@ $(document).ready ->
     {x: 80,  y: 5}
     {x: 100, y: 60}
   ]
-  InitChart data
+  drawChart data
