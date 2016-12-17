@@ -1,30 +1,4 @@
-InitChart = ->
-  lineData = [
-    {
-      'x': 1
-      'y': 5
-    }
-    {
-      'x': 20
-      'y': 20
-    }
-    {
-      'x': 40
-      'y': 10
-    }
-    {
-      'x': 60
-      'y': 40
-    }
-    {
-      'x': 80
-      'y': 5
-    }
-    {
-      'x': 100
-      'y': 60
-    }
-  ]
+InitChart = (data) ->
   vis = d3.select('#graph')
   WIDTH = 1000
   HEIGHT = 500
@@ -37,10 +11,10 @@ InitChart = ->
     MARGINS.left
     WIDTH - (MARGINS.right)
   ]).domain([
-    d3.min(lineData, (d) ->
+    d3.min(data, (d) ->
       d.x
     )
-    d3.max(lineData, (d) ->
+    d3.max(data, (d) ->
       d.x
     )
   ])
@@ -48,10 +22,10 @@ InitChart = ->
     HEIGHT - (MARGINS.top)
     MARGINS.bottom
   ]).domain([
-    d3.min(lineData, (d) ->
+    d3.min(data, (d) ->
       d.y
     )
-    d3.max(lineData, (d) ->
+    d3.max(data, (d) ->
       d.y
     )
   ])
@@ -64,7 +38,15 @@ InitChart = ->
   ).y((d) ->
     yRange d.y
   ).interpolate('basis')
-  vis.append('svg:path').attr('d', lineFunc(lineData)).attr('stroke', 'blue').attr('stroke-width', 2).attr 'fill', 'none'
+  vis.append('svg:path').attr('d', lineFunc(data)).attr('stroke', 'blue').attr('stroke-width', 2).attr 'fill', 'none'
 
 $(document).ready ->
-  InitChart()
+  data = [
+    {x: 1,   y: 5}
+    {x: 20,  y: 20}
+    {x: 40,  y: 10}
+    {x: 60,  y: 40}
+    {x: 80,  y: 5}
+    {x: 100, y: 60}
+  ]
+  InitChart data
