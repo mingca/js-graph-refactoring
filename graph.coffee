@@ -10,6 +10,7 @@ class Graph
       left: 50
 
   render: (data) ->
+    # -- X axis
     xRange = d3.scale.linear().range([
       @margins.left
       @width - (@margins.right)
@@ -21,6 +22,10 @@ class Graph
         d.x
       )
     ])
+    xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickSubdivide(true)
+    @graph.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (@height - @margins.bottom) + ')').call xAxis
+
+    # -- Y axis
     yRange = d3.scale.linear().range([
       @height - (@margins.top)
       @margins.bottom
@@ -32,10 +37,10 @@ class Graph
         d.y
       )
     ])
-    xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickSubdivide(true)
     yAxis = d3.svg.axis().scale(yRange).tickSize(5).orient('left').tickSubdivide(true)
-    @graph.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (@height - @margins.bottom) + ')').call xAxis
     @graph.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + @margins.left + ',0)').call yAxis
+
+    # -- Line
     lineFunc = d3.svg.line().x((d) ->
       xRange d.x
     ).y((d) ->
