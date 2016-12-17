@@ -43,15 +43,4 @@ class Graph
     ).interpolate('basis')
     @graph.append('svg:path').attr('d', lineFunc(data)).attr('stroke', 'blue').attr('stroke-width', 2).attr 'fill', 'none'
 
-$(document).ready ->
-  data = [
-    {x: 1,   y: 5}
-    {x: 20,  y: 20}
-    {x: 40,  y: 10}
-    {x: 60,  y: 40}
-    {x: 80,  y: 5}
-    {x: 100, y: 60}
-  ]
-
-  graph = new Graph
-  graph.render data
+window.Graph = Graph
