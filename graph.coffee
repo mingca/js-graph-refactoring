@@ -1,5 +1,5 @@
 class Graph
-  constructor: ->
+  constructor: (data) ->
     @graph = d3.select('#graph')
     @width = 1000
     @height = 500
@@ -9,19 +9,17 @@ class Graph
       bottom: 20
       left: 50
 
-  render: (data) ->
+    @xMin = d3.min(data, (d) -> d.x)
+    @xMax = d3.max(data, (d) -> d.x)
+    @yMin = d3.min(data, (d) -> d.y)
+    @yMax = d3.max(data, (d) -> d.y)
+
+  render: ->
     # -- X axis
     xRange = d3.scale.linear().range([
       @margins.left
       @width - (@margins.right)
-    ]).domain([
-      d3.min(data, (d) ->
-        d.x
-      )
-      d3.max(data, (d) ->
-        d.x
-      )
-    ])
+    ]).domain([@xMin, @xMax])
     xAxis = d3.svg.axis().scale(xRange).tickSize(5).tickSubdivide(true)
     @graph.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (@height - @margins.bottom) + ')').call xAxis
 
@@ -29,14 +27,7 @@ class Graph
     yRange = d3.scale.linear().range([
       @height - (@margins.top)
       @margins.bottom
-    ]).domain([
-      d3.min(data, (d) ->
-        d.y
-      )
-      d3.max(data, (d) ->
-        d.y
-      )
-    ])
+    ]).domain([@yMin, @yMax])
     yAxis = d3.svg.axis().scale(yRange).tickSize(5).orient('left').tickSubdivide(true)
     @graph.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + @margins.left + ',0)').call yAxis
 
