@@ -8,7 +8,7 @@ Your assignment is to refactor it for structure and readability.
 
 1. Fork this repository
 2. Make your improvements
-3. Submit a pull request
+3. Link us to your fork
 
 Aiming for:
 - Well structured, easy to read code
