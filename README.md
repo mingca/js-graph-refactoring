@@ -6,13 +6,14 @@ Your assignment is to refactor it for structure and readability.
 
 ## Instructions
 
-1. Fork this repository
+1. Clone this repository, do not fork it on Github
 2. Make your improvements
-3. Link us to your fork
+3. Link us to your copy of the repository
 
 Aiming for:
 - Well structured, easy to read code
 - A git commit history that clearly demonstrates your working
+- Any other improvements you would typically do during your work
 
 
 ## References
