@@ -9,6 +9,7 @@ class Graph
       bottom: 20
       left: 50
     @createScales(data)
+    @addAxes()
 
   createScales: (data) ->
     xMin = d3.min(data, (d) -> d.x)
@@ -27,8 +28,8 @@ class Graph
       @height - (@margins.top)
       @margins.bottom
     ]).domain([yMin, yMax])
-    
-  render: ->
+
+  addAxes: ->
     # -- X axis
     xAxis = d3.svg.axis().scale(@xRange).tickSize(5).tickSubdivide(true)
     @graph.append('svg:g').attr('class', 'x axis').attr('transform', 'translate(0,' + (@height - @margins.bottom) + ')').call xAxis
@@ -36,7 +37,9 @@ class Graph
     # -- Y axis
     yAxis = d3.svg.axis().scale(@yRange).tickSize(5).orient('left').tickSubdivide(true)
     @graph.append('svg:g').attr('class', 'y axis').attr('transform', 'translate(' + @margins.left + ',0)').call yAxis
-
+    
+  render: ->
+    
     # -- Line
     lineFunc = d3.svg.line().x((d) =>
       @xRange d.x
