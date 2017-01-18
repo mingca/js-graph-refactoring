@@ -4,10 +4,10 @@ class Graph
     @width    = 1000
     @height   = 500
     @margins  =
-      top:    20
-      right:  20
-      bottom: 20
-      left:   50
+      top     : 20
+      right   : 20
+      bottom  : 20
+      left    : 50
     @createScales(data)
     @addAxes()
 
@@ -17,19 +17,26 @@ class Graph
     yMin = d3.min(data, (d) -> d.y)
     yMax = d3.max(data, (d) -> d.y)
 
+    # -- Calculate Graph Rect
+    graphRect =
+      left    : @margins.left 
+      right   : @width - (@margins.right)
+      bottom  : @height - (@margins.top)
+      top     : @margins.bottom
+
     # -- X Scale
     @xRange = d3.scale.linear()
       .range([
-        @margins.left               # Left  end of Graph
-        @width - (@margins.right)   # Right end of Graph
+        graphRect.left
+        graphRect.right
       ])
       .domain([xMin, xMax])
 
     # -- Y Scale
     @yRange = d3.scale.linear()
       .range([
-        @height - (@margins.top)    # Bottom end of Graph
-        @margins.bottom             # Top    end of Graph
+        graphRect.bottom 
+        graphRect.top
       ])
       .domain([yMin, yMax])
 
